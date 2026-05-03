@@ -24,6 +24,7 @@ jobs:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -56,6 +57,7 @@ jobs:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           cache: |
             rust
@@ -118,6 +120,7 @@ jobs:
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: rust
@@ -135,6 +138,7 @@ jobs:
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: rust
@@ -160,7 +164,7 @@ jobs:
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
         if: steps.filter.outputs.changed == 'true'
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.changed == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.changed == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -199,7 +203,7 @@ jobs:
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
         if: steps.filter.outputs.changed == 'true'
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.changed == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.changed == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -241,7 +245,7 @@ jobs:
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
         if: steps.filter.outputs.changed == 'true'
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.changed == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.changed == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -270,7 +274,7 @@ jobs:
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
         if: steps.filter.outputs.changed == 'true'
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.changed == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.changed == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -436,6 +440,7 @@ jobs:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -457,6 +462,7 @@ jobs:
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: rust
@@ -488,7 +494,7 @@ jobs:
         if: steps.filter.outputs.changed == 'true'
 
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.changed == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.changed == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -521,6 +527,7 @@ jobs:
           pr-number: ${{ github.event.pull_request.number }}
 
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: rust
@@ -544,6 +551,7 @@ jobs:
           pr-number: ${{ github.event.pull_request.number }}
 
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: rust
@@ -570,7 +578,7 @@ jobs:
         if: steps.filter.outputs.src == 'true'
 
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.src == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.src == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -604,7 +612,7 @@ jobs:
         if: steps.filter.outputs.changed == 'true'
 
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.changed == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.changed == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
