@@ -301,4 +301,28 @@ mod test {
         assert_eq!(sources[0].source_text.trim(), r#"console.log("text/javascript");"#);
         assert_eq!(sources[1].source_text.trim(), r#"console.log("application/ecmascript");"#);
     }
+
+    #[test]
+    fn test_parse_astro_frontmatter_with_later_js_separator() {
+        let source_text = r#"
+        ---
+        const title = "hello";
+        ---
+
+        <div>{"---"}</div>
+
+        <script>
+            const marker = "---";
+            console.log(marker);
+        </script>
+        "#;
+
+        let sources = parse_astro(source_text);
+        assert_eq!(sources.len(), 2);
+        assert_eq!(sources[0].source_text.trim(), "const title = \"hello\";");
+        assert_eq!(
+            sources[1].source_text.trim(),
+            "const marker = \"---\";\n            console.log(marker);"
+        );
+    }
 }
