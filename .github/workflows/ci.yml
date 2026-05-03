@@ -19,11 +19,12 @@ concurrency:
 jobs:
   test-ubuntu:
     name: Test Linux
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -51,11 +52,12 @@ jobs:
   test-mac: # Separate job to save a job on PRs
     if: ${{ github.ref_name == 'main' }}
     name: Test Mac
-    runs-on: namespace-profile-mac-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-mac-default' || 'macos-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           cache: |
             rust
@@ -114,10 +116,11 @@ jobs:
   test-big-endian:
     if: ${{ github.ref_name == 'main' }}
     name: Test big-endian # s390x-unknown-linux-gnu is a big-endian
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: rust
@@ -131,10 +134,11 @@ jobs:
   test-32bit:
     if: ${{ github.ref_name == 'main' }}
     name: Test 32-bit # armv7-unknown-linux-gnueabihf is a 32-bit target
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: rust
@@ -147,7 +151,7 @@ jobs:
 
   test-wasm32-wasip1-threads:
     name: Test wasm32-wasip1-threads
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: ./.github/actions/check-changes
@@ -160,7 +164,7 @@ jobs:
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
         if: steps.filter.outputs.changed == 'true'
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.changed == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.changed == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -186,7 +190,7 @@ jobs:
 
   test-napi-compiler:
     name: Test NAPI Compiler
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: ./.github/actions/check-changes
@@ -199,7 +203,7 @@ jobs:
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
         if: steps.filter.outputs.changed == 'true'
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.changed == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.changed == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -229,7 +233,7 @@ jobs:
 
   test-napi-oxlint:
     name: Test NAPI Oxlint
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: ./.github/actions/check-changes
@@ -241,7 +245,7 @@ jobs:
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
         if: steps.filter.outputs.changed == 'true'
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.changed == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.changed == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -258,7 +262,7 @@ jobs:
 
   test-napi-oxfmt:
     name: Test NAPI Oxfmt
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: ./.github/actions/check-changes
@@ -270,7 +274,7 @@ jobs:
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
         if: steps.filter.outputs.changed == 'true'
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.changed == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.changed == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -431,11 +435,12 @@ jobs:
 
   lint:
     name: Lint
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: oxc-project/setup-node@4c26e7cb3605b6bdef5450dacd02c434b10fd8ba # v1.2.0
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -450,13 +455,14 @@ jobs:
 
   doc:
     name: Doc
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     env:
       # FIXME(ci): Unpin once rust-lang/rust#154878 is resolved.
       TOOLCHAIN: nightly-2026-04-01
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: rust
@@ -466,7 +472,7 @@ jobs:
 
   conformance:
     name: Conformance
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
 
@@ -488,7 +494,7 @@ jobs:
         if: steps.filter.outputs.changed == 'true'
 
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.changed == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.changed == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -509,7 +515,7 @@ jobs:
 
   minification:
     name: Minification Size
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
 
@@ -521,6 +527,7 @@ jobs:
           pr-number: ${{ github.event.pull_request.number }}
 
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: rust
@@ -533,7 +540,7 @@ jobs:
 
   allocs:
     name: Allocations
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: ./.github/actions/check-changes
@@ -544,6 +551,7 @@ jobs:
           pr-number: ${{ github.event.pull_request.number }}
 
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
+        if: ${{ github.repository == 'oxc-project/oxc' }}
         with:
           path: /home/runner/.rustup
           cache: rust
@@ -557,7 +565,7 @@ jobs:
 
   ast_changes:
     name: AST Changes
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
 
@@ -570,7 +578,7 @@ jobs:
         if: steps.filter.outputs.src == 'true'
 
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.src == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.src == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
@@ -589,7 +597,7 @@ jobs:
 
   lintgen:
     name: Linter changes
-    runs-on: namespace-profile-linux-x64-default
+    runs-on: ${{ github.repository == 'oxc-project/oxc' && 'namespace-profile-linux-x64-default' || 'ubuntu-latest' }}
     steps:
       - uses: taiki-e/checkout-action@7d1e50e93dc4fb3bba58f85018fadf77898aee8b # v1.4.2
       - uses: ./.github/actions/check-changes
@@ -604,7 +612,7 @@ jobs:
         if: steps.filter.outputs.changed == 'true'
 
       - uses: namespacelabs/nscloud-cache-action@15799a6b54e5765f85b2aac25b3f0df43ed571c0 # v1.4.3
-        if: steps.filter.outputs.changed == 'true'
+        if: ${{ github.repository == 'oxc-project/oxc' && (steps.filter.outputs.changed == 'true') }}
         with:
           path: /home/runner/.rustup
           cache: |
